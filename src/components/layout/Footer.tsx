@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input";
 import { COMPANY_INFO } from "@/config/company";
 
 const footerLinks = {
-  shop: [
+    shop: [
     { label: "All Fragrances", href: "/shop" },
-    { label: "Best Sellers", href: "/shop?collection=best-sellers" },
-    { label: "New Arrivals", href: "/shop?collection=new-arrivals" },
-    { label: "Luxury Collection", href: "/shop?collection=luxury" },
+    { label: "Bestsellers – Set Only", href: "/shop?collection=best-sellers" },
+    { label: "New Arrival – Bestsellers", href: "/shop?collection=new-arrivals" },
+    { label: "Premium Collection", href: "/shop?collection=luxury" },
     { label: "Gift Sets", href: "/shop?collection=gifts" },
   ],
   company: [

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Menu, X, Heart, User, Search } from "lucide-react";
+import { ShoppingBag, Menu, X, Heart, User } from "lucide-react";
+import { SearchBar } from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ProfileMenu } from "@/components/auth/ProfileMenu";
@@ -142,17 +143,10 @@ function Header() {
             {/* Right Section: Actions & Icons */}
             <div className="flex items-center gap-1 md:gap-2 ml-auto">
 
-              {/* Search Button - Desktop */}
-              <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }} className="hidden lg:block">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-10 w-10 text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-100 dark:hover:bg-slate-800/70 rounded-full transition-all duration-200"
-                  aria-label="Search products"
-                >
-                  <Search className="h-5 w-5" />
-                </Button>
-              </motion.div>
+              {/* Search component (desktop + mobile handled internally) */}
+              <div className="hidden lg:block">
+                <SearchBar attachRight />
+              </div>
 
               {/* Desktop: Theme + Wishlist + Auth/Profile */}
               <div className="hidden md:flex items-center gap-1">

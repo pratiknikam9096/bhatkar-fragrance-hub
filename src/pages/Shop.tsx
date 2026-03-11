@@ -50,6 +50,11 @@ const longevityOptions = [
   { value: "intense", label: "Intense (8+ hours)" },
 ];
 
+const sizesOptions = [
+  { value: "8", label: "8 ml" },
+  { value: "100", label: "100 ml" },
+];
+
 const sortOptions = [
   { value: "popularity", label: "Popularity" },
   { value: "price-asc", label: "Price: Low to High" },
@@ -68,6 +73,7 @@ export default function Shop() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedLongevity, setSelectedLongevity] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 6000]);
   const [sortBy, setSortBy] = useState("popularity");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -129,6 +135,14 @@ export default function Shop() {
       );
     }
 
+    // Size filter
+    if (selectedSizes.length > 0) {
+      result = result.filter((p: any) => {
+        const productSizes = (p.sizes || []).map((s: any) => Number(s.ml));
+        return selectedSizes.some(sz => productSizes.includes(Number(sz)) || p.quantity_ml === Number(sz));
+      });
+    }
+
     // Price filter
     result = result.filter(
       (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
@@ -176,6 +190,7 @@ export default function Shop() {
     selectedCategories.length +
     selectedTypes.length +
     selectedLongevity.length +
+    selectedSizes.length +
     (priceRange[0] > 0 || priceRange[1] < 6000 ? 1 : 0);
 
 
@@ -287,6 +302,29 @@ export default function Shop() {
               >
                 {option.label}
               </label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sizes */}
+      <div>
+        <Label className="text-base font-semibold mb-4 block">Sizes</Label>
+        <div className="space-y-3">
+          {sizesOptions.map((sz) => (
+            <div key={sz.value} className="flex items-center space-x-2">
+              <Checkbox
+                id={`size-${sz.value}`}
+                checked={selectedSizes.includes(sz.value)}
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    setSelectedSizes([...selectedSizes, sz.value]);
+                  } else {
+                    setSelectedSizes(selectedSizes.filter((s) => s !== sz.value));
+                  }
+                }}
+              />
+              <label htmlFor={`size-${sz.value}`} className="text-sm cursor-pointer">{sz.label}</label>
             </div>
           ))}
         </div>

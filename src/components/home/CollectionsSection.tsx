@@ -61,9 +61,7 @@ export function CollectionsSection() {
 
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col justify-end p-8">
-                  <span className="text-ivory/70 text-sm uppercase tracking-wider mb-2">
-                    {collection.products.length} Fragrances
-                  </span>
+                  {/* Subtitle intentionally removed to keep cards clean */}
                   <h3 className="font-display text-2xl md:text-3xl font-bold text-ivory mb-2">
                     {collection.name}
                   </h3>

@@ -23,7 +23,7 @@ export default function About() {
           <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5" />
           <div className="container max-w-4xl">
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tighter">
-              About <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent italic">Bhatkar & Co</span>
+              About <span style={{ fontFamily: 'Times New Roman, Times, serif' }} className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent italic">Bhatkar & Co</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-6">
               Welcome to Bhatkar & Co, where tradition meets luxury in the world of fine perfumery.

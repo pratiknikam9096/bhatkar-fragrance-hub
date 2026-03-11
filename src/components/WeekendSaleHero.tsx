@@ -44,7 +44,7 @@ export function WeekendSaleHero() {
         transition={{ duration: 0.8 }}
         className="text-3xl sm:text-4xl md:text-6xl font-serif font-bold mb-3 md:mb-4 leading-tight"
       >
-        Weekend Luxury Sale
+        Gudipadwa Sale
       </motion.h1>
 
       {/* Subtitle */}
