@@ -12,8 +12,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
-// ✅ Import Logo
-import logo from "@/assets/Bhatkarlogo.png";
+// Using public logo asset
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -90,7 +89,7 @@ function Header() {
                 className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
-                  src={logo}
+                  src="/bhatkar-logo.svg"
                   alt="Bhatkar Perfumery Logo"
                   className="h-9 md:h-11 w-auto object-contain flex-shrink-0"
                 />
