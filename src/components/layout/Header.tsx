@@ -90,7 +90,7 @@ function Header() {
                 className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity duration-200"
               >
                 <img
-                  src="/bhatkar-logo.svg"
+                  src="/bhatkar-logo.png"
                   alt="Bhatkar Perfumery Logo"
                   className="h-9 md:h-11 w-auto object-contain flex-shrink-0"
                 />
