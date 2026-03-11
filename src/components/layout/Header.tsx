@@ -22,17 +22,18 @@ const navLinks = [
 ];
 
 // Animation variants for smooth transitions
-const containerVariants = {
+// typed as `any` to avoid Framer Motion type strictness around easing values
+const containerVariants: any = {
   hidden: { opacity: 0, height: 0 },
   visible: {
     opacity: 1,
     height: "auto",
-    transition: { duration: 0.3, ease: "easeInOut" }
+    transition: { duration: 0.3, ease: [0.42, 0, 0.58, 1] }
   },
   exit: {
     opacity: 0,
     height: 0,
-    transition: { duration: 0.2, ease: "easeInOut" }
+    transition: { duration: 0.2, ease: [0.42, 0, 0.58, 1] }
   }
 };
 
@@ -96,7 +97,7 @@ function Header() {
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  transition={{ duration: 0.5, ease: [0, 0, 0.2, 1] }}
                   className="hidden sm:flex flex-col items-start leading-tight"
                 >
                   <span className="font-black text-base md:text-lg text-foreground tracking-tight">

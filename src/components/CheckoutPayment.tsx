@@ -88,6 +88,9 @@ const CheckoutPayment: React.FC<CheckoutPaymentProps> = ({
 
   // Core payment flow extracted to allow prefill collection first
   const doPayment = useCallback(async (contactToUse: string | null) => {
+    // Keep a response-scoped amount available if we need it in error handlers
+    let responseAmount = totalAmount;
+
     try {
       setLoading(true);
       // Clear any previous errors immediately when starting payment
@@ -153,6 +156,8 @@ const CheckoutPayment: React.FC<CheckoutPaymentProps> = ({
       }
 
       const { razorpayOrderId, amount, orderId, productName } = orderResponse.data;
+      // store amount for use outside this try scope (e.g., error handling)
+      responseAmount = amount;
       console.log(`✅ Order created: ${orderId}, Razorpay Order: ${razorpayOrderId}, Amount: ₹${amount}`);
 
       // 3. Open Razorpay checkout
@@ -200,11 +205,11 @@ const CheckoutPayment: React.FC<CheckoutPaymentProps> = ({
             if (verifyResponse.data.success) {
               console.log('🎉 Payment verified successfully! Order:', orderId);
               // Payment successful - call success callback immediately
-              if (onSuccess) {
+                if (onSuccess) {
                 onSuccess({
                   orderId,
                   paymentId: response.razorpay_payment_id,
-                  amount
+                  amount: responseAmount
                 });
               }
               // Clear error state to ensure success is processed completely
@@ -281,7 +286,7 @@ const CheckoutPayment: React.FC<CheckoutPaymentProps> = ({
           onSuccess({
             orderId: err.response?.data?.orderId || '(unknown)',
             paymentId: err.response?.data?.paymentId || '(unknown)',
-            amount
+            amount: responseAmount
           });
         }
         setError(null);

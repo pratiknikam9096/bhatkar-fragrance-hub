@@ -6,6 +6,10 @@ interface User {
   firstname: string;
   lastname: string;
   email: string;
+  // optional profile fields that may be present from backend
+  name?: string;
+  phone?: string;
+  address?: string;
 }
 
 interface AdminUser {
