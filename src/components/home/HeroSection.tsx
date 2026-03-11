@@ -104,7 +104,7 @@ export function HeroSection() {
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 backdrop-blur-sm border border-primary/10">
               <Sparkles className="h-4 w-4 text-primary" />
               <span className="text-xs md:text-sm font-bold text-white">
-                Premium Fragrances Crafted with Passion Since 1987
+                Premium Fragrances Crafted with Passion Since 2025
               </span>
             </span>
           </motion.div>
