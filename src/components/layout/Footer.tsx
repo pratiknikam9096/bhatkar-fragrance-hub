@@ -78,9 +78,9 @@ export function Footer() {
 
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-16">
           {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="md:col-span-2 lg:col-span-2 space-y-8">
             <Link to="/" className="flex items-center gap-4 group">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-primary/20 group-hover:scale-105 transition-transform duration-500">
                 B
@@ -122,7 +122,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm text-ivory/70 hover:text-primary transition-colors duration-300"
+                    className="block py-2 text-sm text-ivory/70 hover:text-primary transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -139,7 +139,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm text-ivory/70 hover:text-primary transition-colors duration-300"
+                    className="block py-2 text-sm text-ivory/70 hover:text-primary transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -156,7 +156,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm text-ivory/70 hover:text-primary transition-colors duration-300"
+                    className="block py-2 text-sm text-ivory/70 hover:text-primary transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
