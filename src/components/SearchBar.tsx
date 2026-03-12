@@ -132,7 +132,8 @@ export function SearchBar(props: { attachRight?: boolean } = {}) {
 
       {/* Desktop Search Bar - Expandable */}
       <div className="hidden md:flex items-center relative">
-        <div className={`relative transition-all duration-300 ease-out ${isOpen ? "w-64" : "w-12"}`}>
+        {/* If attached to the right side of header, keep a usable collapsed width */}
+        <div className={`relative transition-all duration-300 ease-out ${isOpen ? 'w-64' : (attachRight ? 'w-56' : 'w-12')}`}>
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
           <input
             ref={inputRef}
