@@ -22,9 +22,6 @@ const footerLinks = {
   support: [
     { label: "Contact Us", href: "/contact" },
     { label: "FAQs", href: "/faq" },
-    { label: "Shipping Info", href: "/shipping" },
-    { label: "Returns & Refunds", href: "/returns" },
-    { label: "Track Order", href: "/track-order" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy" },
