@@ -141,15 +141,15 @@ function Header() {
             </nav>
 
             {/* Right Section: Actions & Icons */}
-            <div className="flex items-center gap-1 md:gap-2 ml-auto">
+            <div className="flex items-center gap-2 md:gap-4 ml-auto">
 
               {/* Search component (desktop + mobile handled internally) */}
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <SearchBar attachRight />
               </div>
 
               {/* Desktop: Theme + Wishlist + Auth/Profile */}
-              <div className="hidden md:flex items-center gap-1">
+              <div className="hidden md:flex items-center gap-2">
                 {/* Theme Toggle */}
                 <ThemeToggle />
 
