@@ -34,21 +34,7 @@ const categories = [
   { value: "unisex", label: "Unisex" },
 ];
 
-const fragranceTypes = [
-  { value: "woody", label: "Woody" },
-  { value: "floral", label: "Floral" },
-  { value: "citrus", label: "Citrus" },
-  { value: "oriental", label: "Oriental" },
-  { value: "fresh", label: "Fresh" },
-  { value: "spicy", label: "Spicy" },
-];
-
-const longevityOptions = [
-  { value: "light", label: "Light (2-4 hours)" },
-  { value: "moderate", label: "Moderate (4-6 hours)" },
-  { value: "long-lasting", label: "Long-lasting (6-8 hours)" },
-  { value: "intense", label: "Intense (8+ hours)" },
-];
+// Fragrance-specific filters removed per UI request
 
 const sizesOptions = [
   { value: "8", label: "8 ml" },
@@ -71,8 +57,7 @@ export default function Shop() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [selectedLongevity, setSelectedLongevity] = useState<string[]>([]);
+  // removed fragrance type and longevity filters
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 6000]);
   const [sortBy, setSortBy] = useState("popularity");
@@ -115,25 +100,7 @@ export default function Shop() {
       );
     }
 
-    // Fragrance Type filter
-    if (selectedTypes.length > 0) {
-      result = result.filter((p) =>
-        selectedTypes.some(type => 
-          p.description?.toLowerCase().includes(type) || 
-          p.name?.toLowerCase().includes(type)
-        )
-      );
-    }
-
-    // Longevity filter
-    if (selectedLongevity.length > 0) {
-      result = result.filter((p) =>
-        selectedLongevity.some(longevity => 
-          p.description?.toLowerCase().includes(longevity) || 
-          p.name?.toLowerCase().includes(longevity)
-        )
-      );
-    }
+    // fragrance type & longevity filters removed intentionally
 
     // Size filter
     if (selectedSizes.length > 0) {
@@ -168,9 +135,8 @@ export default function Shop() {
   }, [
     searchQuery,
     selectedCategories,
-    selectedTypes,
-    selectedLongevity,
     priceRange,
+    selectedSizes,
     sortBy,
     collectionParam,
     products
@@ -179,8 +145,7 @@ export default function Shop() {
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedCategories([]);
-    setSelectedTypes([]);
-    setSelectedLongevity([]);
+    setSelectedSizes([]);
     setPriceRange([0, 6000]);
     setSortBy("popularity");
   };
@@ -188,8 +153,7 @@ export default function Shop() {
   const activeFiltersCount =
     (searchQuery ? 1 : 0) +
     selectedCategories.length +
-    selectedTypes.length +
-    selectedLongevity.length +
+    
     selectedSizes.length +
     (priceRange[0] > 0 || priceRange[1] < 6000 ? 1 : 0);
 
@@ -226,37 +190,7 @@ export default function Shop() {
         </div>
       </div>
 
-      {/* Fragrance Type */}
-      <div>
-        <Label className="text-base font-semibold mb-4 block">
-          Fragrance Type
-        </Label>
-        <div className="space-y-3">
-          {fragranceTypes.map((type) => (
-            <div key={type.value} className="flex items-center space-x-2">
-              <Checkbox
-                id={`type-${type.value}`}
-                checked={selectedTypes.includes(type.value)}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedTypes([...selectedTypes, type.value]);
-                  } else {
-                    setSelectedTypes(
-                      selectedTypes.filter((t) => t !== type.value)
-                    );
-                  }
-                }}
-              />
-              <label
-                htmlFor={`type-${type.value}`}
-                className="text-sm cursor-pointer"
-              >
-                {type.label}
-              </label>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Fragrance Type removed per spec */}
 
       {/* Price Range */}
       <div>
@@ -277,35 +211,7 @@ export default function Shop() {
         </div>
       </div>
 
-      {/* Longevity */}
-      <div>
-        <Label className="text-base font-semibold mb-4 block">Longevity</Label>
-        <div className="space-y-3">
-          {longevityOptions.map((option) => (
-            <div key={option.value} className="flex items-center space-x-2">
-              <Checkbox
-                id={`longevity-${option.value}`}
-                checked={selectedLongevity.includes(option.value)}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedLongevity([...selectedLongevity, option.value]);
-                  } else {
-                    setSelectedLongevity(
-                      selectedLongevity.filter((l) => l !== option.value)
-                    );
-                  }
-                }}
-              />
-              <label
-                htmlFor={`longevity-${option.value}`}
-                className="text-sm cursor-pointer"
-              >
-                {option.label}
-              </label>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Longevity removed per spec */}
 
       {/* Sizes */}
       <div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "@/lib/axios";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -30,6 +30,7 @@ export default function ProductDetail() {
   const { id } = useParams();
   const { addItem } = useCart();
   const { products } = useProducts();
+  const navigate = useNavigate();
 
   // Find product from global cache
   const product = products.find((p: any) => p.id == id); // Loose equality in case of string/number mismatch
@@ -201,6 +202,8 @@ export default function ProductDetail() {
     toast.success(`${product.name} added to cart!`, {
       description: `${selectedVariant.variant_name} × ${quantity} | ₹${(variantPrice * quantity).toFixed(2)}`,
     });
+    // Redirect to cart/checkout after adding
+    navigate('/cart');
   };
 
   const relatedProducts = products

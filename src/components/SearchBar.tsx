@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search as SearchIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/products";
+import { useProducts } from "@/contexts/ProductContext";
 import { formatPrice } from "@/lib/utils";
 import { getProductImage, handleImageError } from "@/lib/imageUtils";
 
@@ -11,6 +11,7 @@ export function SearchBar(props: { attachRight?: boolean } = {}) {
   const { attachRight = false } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { products } = useProducts();
   const [results, setResults] = useState<typeof products>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,11 +19,21 @@ export function SearchBar(props: { attachRight?: boolean } = {}) {
   // Filter products based on search query
   useEffect(() => {
     if (searchQuery.trim()) {
-      const filtered = products.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.fragranceType.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      const q = searchQuery.toLowerCase();
+      const filtered = (products || []).filter((product: any) => {
+        return (
+          String(product.name || "").toLowerCase().includes(q) ||
+          String(product.description || "").toLowerCase().includes(q) ||
+          String(product.fragranceType || "").toLowerCase().includes(q) ||
+          String(product.category || "").toLowerCase().includes(q) ||
+          String(product.brand || "").toLowerCase().includes(q) ||
+          (product.notes && (
+            ((product.notes.top || []) as string[]).join(" ").toLowerCase().includes(q) ||
+            ((product.notes.middle || []) as string[]).join(" ").toLowerCase().includes(q) ||
+            ((product.notes.base || []) as string[]).join(" ").toLowerCase().includes(q)
+          ))
+        );
+      });
       setResults(filtered);
     } else {
       setResults([]);

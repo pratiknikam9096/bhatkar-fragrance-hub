@@ -233,13 +233,13 @@ export const products: Product[] = [
 export const collections = [
   {
     id: "best-sellers",
-    name: "Bestsellers – Set Only",
-    description: "Our most loved fragrances (Set Only)",
+    name: "Bestsellers",
+    description: "Our most loved fragrances",
     products: products.filter(p => p.isBestSeller)
   },
   {
     id: "new-arrivals",
-    name: "New Arrival – Bestsellers",
+    name: "New Arrivals",
     description: "Fresh additions to our collection",
     products: products.filter(p => p.isNewArrival)
   },

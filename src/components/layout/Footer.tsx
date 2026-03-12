@@ -7,8 +7,8 @@ import { COMPANY_INFO } from "@/config/company";
 const footerLinks = {
     shop: [
     { label: "All Fragrances", href: "/shop" },
-    { label: "Bestsellers – Set Only", href: "/shop?collection=best-sellers" },
-    { label: "New Arrival – Bestsellers", href: "/shop?collection=new-arrivals" },
+    { label: "Bestsellers", href: "/shop?collection=best-sellers" },
+    { label: "New Arrivals", href: "/shop?collection=new-arrivals" },
     { label: "Premium Collection", href: "/shop?collection=luxury" },
     { label: "Gift Sets", href: "/shop?collection=gifts" },
   ],

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isMobileExpanded, setIsMobileExpanded] = useState(false);
   const { addItem } = useCart();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const navigate = useNavigate();
 
   if (!product) return null;
 
@@ -74,6 +76,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     } else {
       const dbProduct = product as DatabaseProduct;
       addItem(dbProduct as any, 1, dbProduct.price);
+    }
+    // After adding item, navigate to cart so users can checkout (Order behavior)
+    try {
+      navigate('/cart');
+    } catch (err) {
+      // ignore navigation errors
     }
   };
 
