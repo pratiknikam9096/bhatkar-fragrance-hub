@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-function getNextSaturday() {
-  const now = new Date();
-  const day = now.getDay();
-  const diff = (6 - day + 7) % 7 || 7;
-  const nextSaturday = new Date(now);
-  nextSaturday.setDate(now.getDate() + diff);
-  nextSaturday.setHours(0, 0, 0, 0);
-  return nextSaturday;
+function getSaleEndDate() {
+  // Target end date: March 20, 2026 (inclusive end of day)
+  return new Date(2026, 2, 20, 23, 59, 59);
 }
 
 export function WeekendSaleHero() {
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
 
   function getTimeRemaining() {
-    const target = getNextSaturday();
+    const target = getSaleEndDate();
     const now = new Date();
-    const diff = target.getTime() - now.getTime();
+    const diff = Math.max(0, target.getTime() - now.getTime());
 
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -48,8 +43,12 @@ export function WeekendSaleHero() {
       </motion.h1>
 
       {/* Subtitle */}
-      <p className="text-neutral-400 mb-8 md:mb-10 tracking-wide text-sm sm:text-base md:text-lg max-w-xl">
-        Exclusive offers dropping soon. Don’t miss it.
+      <p className="text-neutral-400 mb-4 md:mb-6 tracking-wide text-sm sm:text-base md:text-lg max-w-xl">
+        Exclusive offers dropping soon. Don’t miss it. 🙂
+      </p>
+
+      <p className="text-sm text-primary font-medium mb-6">
+        Sale extended — ends March 20, 2026
       </p>
 
       {/* Countdown */}
