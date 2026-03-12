@@ -23,6 +23,7 @@ import ProductReviews from "@/components/reviews/ProductReviews";
 import { useCart } from "@/contexts/CartContext";
 import { formatPrice, cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 import { normalizeProductImages } from "@/lib/imageUtils";
 import { useProducts } from "@/contexts/ProductContext";
 
@@ -31,6 +32,7 @@ export default function ProductDetail() {
   const { addItem } = useCart();
   const { products } = useProducts();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   // Find product from global cache
   const product = products.find((p: any) => p.id == id); // Loose equality in case of string/number mismatch
@@ -174,6 +176,14 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
+    // Block ordering for unauthenticated users
+    if (!isAuthenticated) {
+      toast.error("Please login to place an order");
+      setTimeout(() => {
+        try { navigate('/login'); } catch (err) {}
+      }, 1500);
+      return;
+    }
     // Validation: Check if variant is selected
     if (!selectedVariant) {
       toast.error("Please select a variant");

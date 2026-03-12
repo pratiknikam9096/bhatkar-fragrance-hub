@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -52,6 +54,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   if (!product) return null;
 
@@ -68,6 +71,16 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Block adding to cart when not authenticated
+    if (!isAuthenticated) {
+      toast.error("Please login to place an order");
+      // optional redirect to login after 1.5s
+      setTimeout(() => {
+        try { navigate('/login'); } catch (err) {}
+      }, 1500);
+      return;
+    }
 
     if (isStatic) {
       const staticProduct = product as Product;
