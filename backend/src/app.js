@@ -29,7 +29,10 @@ app.use(compression());
 
 // ===== CRITICAL: CORS MUST BE FIRST =====
 const allowedOrigins = [
+  "https://bhatkarco.com",
+  "https://www.bhatkarco.com",
   "https://bhatkar-fragrance-hub-5.onrender.com",
+  "http://localhost:5173",
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
