@@ -8,7 +8,7 @@
 export const COMPANY_INFO = {
   name: "Bhatkar & Co",
   tagline: "Fine Perfumery",
-  established: "January-2026",
+  established: "January 2025",
   
   address: `R102, Moregaon 90 Feet Road,
 Nalasopara East,

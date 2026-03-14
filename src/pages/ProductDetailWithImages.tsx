@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ShoppingBag,
@@ -71,6 +71,7 @@ export default function ProductDetailWithImages() {
   const { addItem } = useCart();
   const { isAuthenticated } = useAuth();
   const { products } = useProducts();
+  const navigate = useNavigate();
 
   // Find product from global cache
   const product = products.find((p: any) => p.id == id); // Loose equality in case of string/number mismatch
@@ -190,6 +191,7 @@ export default function ProductDetailWithImages() {
       description: `Quantity: ${quantity}`,
     });
     setQuantity(1);
+    navigate('/cart');
   };
 
   const handleVariantChange = (variant: ProductVariant) => {

@@ -45,6 +45,7 @@ export const products: Product[] = [
       base: ["Amber", "Sandalwood", "Musk"]
     },
     sizes: [
+      { ml: 8, price: 799 },
       { ml: 30, price: 2499 },
       { ml: 50, price: 3999 },
       { ml: 100, price: 4999 }
@@ -70,6 +71,7 @@ export const products: Product[] = [
       base: ["White Musk", "Cedarwood", "Vanilla"]
     },
     sizes: [
+      { ml: 8, price: 499 },
       { ml: 30, price: 1899 },
       { ml: 50, price: 2799 },
       { ml: 100, price: 3499 }
@@ -95,6 +97,7 @@ export const products: Product[] = [
       base: ["Vetiver", "Leather", "Tonka Bean"]
     },
     sizes: [
+      { ml: 8, price: 599 },
       { ml: 30, price: 2199 },
       { ml: 50, price: 3199 },
       { ml: 100, price: 3999 }
@@ -230,7 +233,7 @@ export const products: Product[] = [
 export const collections = [
   {
     id: "best-sellers",
-    name: "Best Sellers",
+    name: "Bestsellers",
     description: "Our most loved fragrances",
     products: products.filter(p => p.isBestSeller)
   },
@@ -242,7 +245,7 @@ export const collections = [
   },
   {
     id: "luxury",
-    name: "Luxury Collection",
+    name: "Premium Collection",
     description: "The pinnacle of perfumery",
     products: products.filter(p => p.isLuxury)
   }
@@ -251,38 +254,38 @@ export const collections = [
 export const testimonials = [
   {
     id: "1",
-    name: "Priya Sharma",
-    location: "Mumbai",
+    name: "Rohit Patil",
+    location: "Pune",
     rating: 5,
-    text: "Royal Oud Noir is absolutely divine! The longevity is incredible - I get compliments all day long. Bhatkar & Co has become my go-to for luxury fragrances.",
-    product: "Royal Oud Noir",
+    text: "Absolutely love Aura — elegant and long-lasting. Perfect for special occasions.",
+    product: "Aura",
     verified: true
   },
   {
     id: "2",
-    name: "Arjun Mehta",
-    location: "Delhi",
+    name: "Sneha Deshmukh",
+    location: "Mumbai",
     rating: 5,
-    text: "Gentleman's Code perfectly balances sophistication with everyday wearability. The quality rivals international brands at a fraction of the price.",
-    product: "Gentleman's Code",
+    text: "Purchased the Set — great value and beautiful presentation. Makes for an excellent gift.",
+    product: "Set",
     verified: true
   },
   {
     id: "3",
-    name: "Ananya Reddy",
-    location: "Bangalore",
+    name: "Ajinkya Jadhav",
+    location: "PCMC",
     rating: 5,
-    text: "Velvet Rose Garden is the most beautiful floral fragrance I've ever worn. It's romantic, elegant, and truly long-lasting. Highly recommend!",
-    product: "Velvet Rose Garden",
+    text: "Vibe has a unique character — fresh, uplifting and gets noticed. Highly recommended.",
+    product: "Vibe",
     verified: true
   },
   {
     id: "4",
-    name: "Vikram Singh",
-    location: "Jaipur",
+    name: "Vaibhav Shinde",
+    location: "Pune",
     rating: 5,
-    text: "The attention to detail in every bottle is remarkable. Ocean Breeze is my signature scent now - fresh yet masculine. Excellent customer service too!",
-    product: "Ocean Breeze",
+    text: "Plan is my daily go-to. Subtle yet persistent. Fantastic craftsmanship.",
+    product: "Plan",
     verified: true
   }
 ];

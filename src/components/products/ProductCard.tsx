@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,6 +53,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isMobileExpanded, setIsMobileExpanded] = useState(false);
   const { addItem } = useCart();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   if (!product) return null;
 
@@ -67,6 +72,16 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
 
+    // Block adding to cart when not authenticated
+    if (!isAuthenticated) {
+      toast.error("Please login to place an order");
+      // optional redirect to login after 1.5s
+      setTimeout(() => {
+        try { navigate('/login'); } catch (err) {}
+      }, 1500);
+      return;
+    }
+
     if (isStatic) {
       const staticProduct = product as Product;
       const defaultSize = staticProduct.sizes[staticProduct.sizes.length - 1];
@@ -74,6 +89,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     } else {
       const dbProduct = product as DatabaseProduct;
       addItem(dbProduct as any, 1, dbProduct.price);
+    }
+    // After adding item, navigate to cart so users can checkout (Order behavior)
+    try {
+      navigate('/cart');
+    } catch (err) {
+      // ignore navigation errors
     }
   };
 

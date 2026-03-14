@@ -1158,6 +1158,10 @@ export default function Products() {
                           onChange={(e) => setNewVariant({ ...newVariant, value: e.target.value })}
                           className="text-xs h-8"
                         />
+                        <div className="flex gap-2 mt-2">
+                          <button type="button" className="text-xs px-2 py-1 rounded border" onClick={() => setNewVariant({ ...newVariant, value: '8', name: '8ml' })}>8 ml</button>
+                          <button type="button" className="text-xs px-2 py-1 rounded border" onClick={() => setNewVariant({ ...newVariant, value: '100', name: '100ml' })}>100 ml</button>
+                        </div>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">

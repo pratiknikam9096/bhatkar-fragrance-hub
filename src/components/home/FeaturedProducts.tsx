@@ -13,7 +13,7 @@ interface FeaturedProductsProps {
 }
 
 export function FeaturedProducts({
-  title = "Best Sellers",
+  title = "Bestsellers",
   description = "Our most loved fragrances, chosen by thousands of customers",
   filterFn = (p) => p.isBestSeller || false,
   limit = 4,
