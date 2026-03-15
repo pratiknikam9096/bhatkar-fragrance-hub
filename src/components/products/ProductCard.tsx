@@ -72,14 +72,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
 
-    // Block adding to cart when not authenticated
+    // Allow guests to add items to cart. Login will be required later at checkout.
     if (!isAuthenticated) {
-      toast.error("Please login to place an order");
-      // optional redirect to login after 1.5s
-      setTimeout(() => {
-        try { navigate('/login'); } catch (err) {}
-      }, 1500);
-      return;
+      toast.success("Added to cart. Login during checkout to complete your order.");
     }
 
     if (isStatic) {

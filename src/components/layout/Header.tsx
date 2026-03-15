@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Menu, X, Heart, User } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
@@ -55,6 +55,20 @@ function Header() {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Open auth modal when ?login=true is present in URL (useful for checkout redirects)
+  useEffect(() => {
+    const wantsLogin = searchParams.get("login") === "true";
+    if (wantsLogin && !isAuthenticated) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+    // If user is already logged in, clear the query param
+    if (isAuthenticated && wantsLogin) {
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams, isAuthenticated]);
 
   return (
     <>
@@ -226,7 +240,12 @@ function Header() {
               {!isAuthenticated && isAuthModalOpen && (
                 <AuthModal
                   isOpen={isAuthModalOpen}
-                  onClose={() => setIsAuthModalOpen(false)}
+                  onClose={() => {
+                    setIsAuthModalOpen(false);
+                    if (searchParams.get("login") === "true") {
+                      setSearchParams({}, { replace: true });
+                    }
+                  }}
                 />
               )}
 

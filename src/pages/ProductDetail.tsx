@@ -176,14 +176,11 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    // Block ordering for unauthenticated users
+    // Allow guests to add items to cart. Login will be required at checkout.
     if (!isAuthenticated) {
-      toast.error("Please login to place an order");
-      setTimeout(() => {
-        try { navigate('/login'); } catch (err) {}
-      }, 1500);
-      return;
+      toast.success("Added to cart. Login during checkout to complete your order.");
     }
+
     // Validation: Check if variant is selected
     if (!selectedVariant) {
       toast.error("Please select a variant");

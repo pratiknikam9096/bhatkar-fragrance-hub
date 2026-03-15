@@ -181,8 +181,7 @@ export default function ProductDetailWithImages() {
 
   const handleAddToCart = () => {
     if (!isAuthenticated) {
-      toast.error("Please login to add items to cart");
-      return;
+      toast.success("Added to cart. Login during checkout to complete your order.");
     }
 
     // Add to cart with selected quantity

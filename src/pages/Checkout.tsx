@@ -39,6 +39,18 @@ export default function Checkout() {
     }
   }, [stateData, state.items.length, navigate, toast]);
 
+  // When a user logs in mid-checkout, prefill form fields from their profile
+  React.useEffect(() => {
+    if (!user) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      email: prev.email || user.email || "",
+      firstName: prev.firstName || user.firstname || "",
+      lastName: prev.lastName || user.lastname || "",
+    }));
+  }, [user]);
+
   const [loading, setLoading] = useState(false);
   const [paymentReady, setPaymentReady] = useState(false);
   const [formData, setFormData] = useState({
@@ -133,6 +145,20 @@ export default function Checkout() {
   };
 
   const proceedToPayment = () => {
+    // Require login at the moment of placing an order (before generating a payment order)
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to complete your order. Your shipping details are saved.",
+        variant: "default",
+      });
+
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set("login", "true");
+      navigate({ pathname: location.pathname, search: searchParams.toString() }, { replace: true });
+      return;
+    }
+
     if (validateShippingInfo()) {
       setPaymentReady(true);
     }
@@ -336,6 +362,11 @@ export default function Checkout() {
                       <p className="text-sm text-muted-foreground mb-4">
                         Choose your preferred payment method - UPI, Cards, Wallets, NetBanking and more available
                       </p>
+                      {!user && (
+                        <div className="mb-4 rounded-md bg-yellow-50 border border-yellow-200 p-3 text-sm text-yellow-800">
+                          Login is required to place the order. Click &ldquo;Proceed to Payment&rdquo; to sign in and continue.
+                        </div>
+                      )}
                       <Button
                         type="button"
                         onClick={proceedToPayment}
