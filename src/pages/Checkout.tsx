@@ -28,16 +28,9 @@ export default function Checkout() {
   // Get data from navigation state if available
   const stateData = location.state || null;
 
-  // IMPORTANT: Redirect back to cart if state is missing (prevents broken flow from Razorpay external redirects)
-  React.useEffect(() => {
-    if (!stateData && state.items.length > 0) {
-      toast({
-        title: "Session Reset",
-        description: "Please restart the checkout process securely.",
-      });
-      navigate("/cart");
-    }
-  }, [stateData, state.items.length, navigate, toast]);
+  // NOTE: Avoid forcing a redirect back to cart if the user refreshes the page or returns
+  // to the checkout URL directly. Preserving the form state allows checkout to continue.
+  // (If the payment flow needs special handling, we can add tighter checks later.)
 
   // When a user logs in mid-checkout, prefill form fields from their profile
   React.useEffect(() => {
