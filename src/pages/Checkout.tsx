@@ -342,11 +342,7 @@ export default function Checkout() {
                       <p className="text-sm text-muted-foreground mb-4">
                         Choose your preferred payment method - UPI, Cards, Wallets, NetBanking and more available
                       </p>
-                      {!user && (
-                        <div className="mb-4 rounded-md bg-blue-50 border border-blue-200 p-3 text-sm text-blue-800">
-                          Guest checkout available — you can complete the order without logging in. Login will autofill saved details.
-                        </div>
-                      )}
+
                       <Button
                         type="button"
                         onClick={proceedToPayment}
