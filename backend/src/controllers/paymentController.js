@@ -17,7 +17,17 @@ const { logger } = require('../utils/logger');
  */
 exports.createOrder = async (req, res) => {
   try {
-    const { items, contact = null, shippingData = null } = req.body;
+    const { items, contact = null, shippingData = null, isGuest = false, name = null, phone = null, address = null } = req.body;
+
+    // If shippingData wasn't passed but top-level guest fields exist, build shippingData
+    const effectiveShipping = shippingData || (name || phone || address ? {
+      firstName: name || null,
+      lastName: null,
+      phone: phone || null,
+      address: address || null,
+      city: req.body.city || null,
+      zipCode: req.body.zipCode || null
+    } : null);
 
     // Accept optional userId from middleware (optionalAuth)
     const userId = req.user?.id || null;
@@ -26,7 +36,7 @@ exports.createOrder = async (req, res) => {
     // If guest (no userId), require shippingData with essential fields
     if (!userId) {
       const required = ['firstName', 'phone', 'address', 'city', 'zipCode'];
-      const missing = required.filter(f => !shippingData || !shippingData[f]);
+      const missing = required.filter(f => !effectiveShipping || !effectiveShipping[f]);
       if (missing.length > 0) {
         return res.status(400).json({ success: false, error: `Missing shipping info for guest checkout: ${missing.join(', ')}` });
       }
@@ -39,7 +49,7 @@ exports.createOrder = async (req, res) => {
     console.log('📋 Processing multi-item order request:', JSON.stringify(items));
 
     // Create order with shipping data from checkout form
-    const result = await paymentService.createOrder(userId, items, contact, shippingData);
+    const result = await paymentService.createOrder(userId, items, contact, effectiveShipping);
 
     console.log('✅ Order created successfully:', {
       orderId: result.orderId,

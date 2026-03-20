@@ -28,6 +28,10 @@ interface CheckoutPaymentProps {
     zipCode: string;
     country: string;
   };
+  isGuest?: boolean;
+  guestName?: string;
+  guestPhone?: string;
+  guestAddress?: string;
   onSuccess?: (response: any) => void;
   onError?: (error: any) => void;
   buttonText?: string;
@@ -127,7 +131,9 @@ const CheckoutPayment: React.FC<CheckoutPaymentProps> = ({
           productId: item.productId,
           quantity: item.quantity
         })),
-        contact: formattedPhone || null
+        contact: formattedPhone || null,
+        // Indicate guest or logged-in user; higher-level component passes this
+        isGuest: (shippingData == null) ? false : (shippingData && !localStorage.getItem('userEmail'))
       };
 
       // Include full shipping data if available
@@ -143,6 +149,11 @@ const CheckoutPayment: React.FC<CheckoutPaymentProps> = ({
           zipCode: shippingData.zipCode,
           country: shippingData.country
         };
+        // Also include explicit guest fields at top-level for backend convenience
+        orderPayload.isGuest = !localStorage.getItem('userEmail');
+        orderPayload.name = `${shippingData.firstName || ''} ${shippingData.lastName || ''}`.trim();
+        orderPayload.phone = formattedPhone || null;
+        orderPayload.address = shippingData.address || null;
       }
 
       const orderResponse = await api.post('/payment/create-order', orderPayload);

@@ -102,14 +102,19 @@ class PaymentService {
       const shippingPincode = shippingData?.zipCode || null;
       const shippingPhone = shippingData?.phone || contact || userPhone;
 
+      // Prepare guest fields (if any) to store in orders table
+      const guestName = shippingData?.firstName || shippingData?.name || null;
+      const guestPhoneField = shippingPhone || null;
+      const guestAddressField = shippingAddress || null;
+
       const orderInsertResult = await conn.query(
         `INSERT INTO orders (user_id, total_amount, razorpay_order_id, status, phone, 
           first_name, last_name, shipping_address, shipping_city, shipping_state, 
-          shipping_pincode, shipping_phone, is_guest, created_at)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW()) RETURNING *`,
+          shipping_pincode, shipping_phone, is_guest, guest_name, guest_phone, guest_address, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, NOW()) RETURNING *`,
         [userId, finalAmount, razorpayOrder.id, 'PENDING', userPhone,
          firstName, lastName, shippingAddress, shippingCity, shippingState,
-         shippingPincode, shippingPhone, userId ? false : true]
+         shippingPincode, shippingPhone, userId ? false : true, guestName, guestPhoneField, guestAddressField]
       );
 
       const orderId = orderInsertResult.rows[0].id;
