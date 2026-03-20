@@ -25,10 +25,12 @@ class PaymentService {
     try {
       await conn.query('BEGIN');
 
-      // 1. Verify user exists
-      const userCheck = await conn.query('SELECT id FROM users WHERE id = $1', [userId]);
-      if (!userCheck.rows || userCheck.rows.length === 0) {
-        throw new Error(`User with ID ${userId} not found.`);
+      // 1. Verify user exists if provided. Guests are allowed (userId === null)
+      if (userId) {
+        const userCheck = await conn.query('SELECT id FROM users WHERE id = $1', [userId]);
+        if (!userCheck.rows || userCheck.rows.length === 0) {
+          throw new Error(`User with ID ${userId} not found.`);
+        }
       }
 
       let totalAmount = 0;
@@ -70,21 +72,26 @@ class PaymentService {
       }
 
       // 3. Create Razorpay order
+      const receiptLabel = `order_${Date.now()}_${userId ? userId : 'guest'}`;
       const razorpayOrder = await razorpay.orders.create({
         amount: Math.round(finalAmount * 100), // Convert to paise
         currency: 'INR',
-        receipt: `order_${Date.now()}_${userId}`,
+        receipt: receiptLabel,
         payment_capture: 1,
         notes: Object.assign({
-          userId,
+          userId: userId || null,
+          is_guest: userId ? false : true,
           itemCount: items.length
         }, contact ? { contact } : {})
       });
 
       // 4. Save order in database
-      // First, fetch user phone for shipment info
-      const userResult = await conn.query('SELECT phone FROM users WHERE id = $1', [userId]);
-      const userPhone = userResult.rows[0]?.phone || contact || null;
+      // Fetch user phone if userId provided, else use contact from payload
+      let userPhone = contact || null;
+      if (userId) {
+        const userResult = await conn.query('SELECT phone FROM users WHERE id = $1', [userId]);
+        userPhone = userResult.rows[0]?.phone || userPhone;
+      }
 
       // Extract shipping details from shippingData or use defaults
       const firstName = shippingData?.firstName || null;
@@ -97,12 +104,12 @@ class PaymentService {
 
       const orderInsertResult = await conn.query(
         `INSERT INTO orders (user_id, total_amount, razorpay_order_id, status, phone, 
-              first_name, last_name, shipping_address, shipping_city, shipping_state, 
-              shipping_pincode, shipping_phone, created_at)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW()) RETURNING *`,
+          first_name, last_name, shipping_address, shipping_city, shipping_state, 
+          shipping_pincode, shipping_phone, is_guest, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW()) RETURNING *`,
         [userId, finalAmount, razorpayOrder.id, 'PENDING', userPhone,
          firstName, lastName, shippingAddress, shippingCity, shippingState,
-         shippingPincode, shippingPhone]
+         shippingPincode, shippingPhone, userId ? false : true]
       );
 
       const orderId = orderInsertResult.rows[0].id;

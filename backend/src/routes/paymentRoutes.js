@@ -20,6 +20,7 @@ const router = express.Router();
 const paymentController = require('../controllers/paymentController');
 const { auth } = require('../middlewares/auth');
 const { adminAuth } = require('../middlewares/adminAuth');
+const optionalAuth = require('../middlewares/optionalAuth');
 const { captureRawBody, attachRawBody } = require('../middlewares/webhookMiddleware');
 
 // ===== LOGGING INITIALIZATION =====
@@ -119,9 +120,9 @@ router.get('/config', (req, res) => {
 
 // Create payment order
 // POST /api/payment/create-order
-// Body: { productId, quantity }
-// Auth: Required (userId extracted from JWT token)
-router.post('/create-order', auth, (req, res, next) => {
+// Body: { items, contact, shippingData }
+// Auth: OPTIONAL (use optionalAuth so guests may checkout)
+router.post('/create-order', optionalAuth, (req, res, next) => {
   console.log('📨 POST /api/payment/create-order received');
   console.log('   📄 Body:', { productId: req.body.productId, quantity: req.body.quantity });
   console.log('   👤 User from token:', req.user?.id || 'none');
@@ -131,8 +132,8 @@ router.post('/create-order', auth, (req, res, next) => {
 // Verify payment
 // POST /api/payment/verify
 // Body: { orderId, razorpay_payment_id, razorpay_signature }
-// Auth: Required for security
-router.post('/verify', auth, (req, res, next) => {
+// Auth: Optional (verification works for guest orders too)
+router.post('/verify', optionalAuth, (req, res, next) => {
   console.log('🔐 POST /api/payment/verify received');
   next();
 }, paymentController.verifyPayment);

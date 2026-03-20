@@ -138,20 +138,7 @@ export default function Checkout() {
   };
 
   const proceedToPayment = () => {
-    // Require login at the moment of placing an order (before generating a payment order)
-    if (!user) {
-      toast({
-        title: "Login Required",
-        description: "Please log in to complete your order. Your shipping details are saved.",
-        variant: "default",
-      });
-
-      const searchParams = new URLSearchParams(location.search);
-      searchParams.set("login", "true");
-      navigate({ pathname: location.pathname, search: searchParams.toString() }, { replace: true });
-      return;
-    }
-
+    // Allow guest checkout: do not force login. Validate shipping info and proceed.
     if (validateShippingInfo()) {
       setPaymentReady(true);
     }
@@ -356,8 +343,8 @@ export default function Checkout() {
                         Choose your preferred payment method - UPI, Cards, Wallets, NetBanking and more available
                       </p>
                       {!user && (
-                        <div className="mb-4 rounded-md bg-yellow-50 border border-yellow-200 p-3 text-sm text-yellow-800">
-                          Login is required to place the order. Click &ldquo;Proceed to Payment&rdquo; to sign in and continue.
+                        <div className="mb-4 rounded-md bg-blue-50 border border-blue-200 p-3 text-sm text-blue-800">
+                          Guest checkout available — you can complete the order without logging in. Login will autofill saved details.
                         </div>
                       )}
                       <Button

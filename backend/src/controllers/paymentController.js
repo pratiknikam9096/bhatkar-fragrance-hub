@@ -19,12 +19,17 @@ exports.createOrder = async (req, res) => {
   try {
     const { items, contact = null, shippingData = null } = req.body;
 
-    // Require userId from authenticated middleware (auth)
-    const userId = req.user?.id;
-    console.log(`👤 Auth Check - User from token: ${userId || 'MISSING'}`);
+    // Accept optional userId from middleware (optionalAuth)
+    const userId = req.user?.id || null;
+    console.log(`👤 Auth Check - User from token: ${userId || 'GUEST'}`);
 
+    // If guest (no userId), require shippingData with essential fields
     if (!userId) {
-      return res.status(401).json({ success: false, error: 'Unauthorized: You must be logged in to create an order' });
+      const required = ['firstName', 'phone', 'address', 'city', 'zipCode'];
+      const missing = required.filter(f => !shippingData || !shippingData[f]);
+      if (missing.length > 0) {
+        return res.status(400).json({ success: false, error: `Missing shipping info for guest checkout: ${missing.join(', ')}` });
+      }
     }
 
     if (!items || !Array.isArray(items) || items.length === 0) {

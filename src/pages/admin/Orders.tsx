@@ -207,8 +207,13 @@ export default function AdminOrders() {
                           </td>
                           <td className="p-4">
                             <div className="flex flex-col">
-                              <span className="font-medium text-foreground">{o.customer_name || 'Anonymous'}</span>
-                              <span className="text-xs text-muted-foreground">{o.customer_email}</span>
+                              <div className="flex items-center gap-2">
+                                <span className="font-medium text-foreground">{o.customer_name || 'Anonymous'}</span>
+                                {o.is_guest && (
+                                  <Badge className="text-xs bg-muted/40 text-muted-foreground">Guest Order</Badge>
+                                )}
+                              </div>
+                              <span className="text-xs text-muted-foreground">{o.customer_email || (o.is_guest ? o.first_name || 'Guest' : '')}</span>
                             </div>
                           </td>
                           <td className="p-4">
@@ -284,10 +289,13 @@ export default function AdminOrders() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 pt-2 border-t border-border/50">
-                    <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Customer</p>
-                      <p className="text-sm font-medium">{o.customer_name || 'Guest'}</p>
-                    </div>
+                      <div>
+                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Customer</p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium">{o.customer_name || o.first_name || 'Guest'}</p>
+                          {o.is_guest && <Badge className="text-xs bg-muted/40 text-muted-foreground">Guest Order</Badge>}
+                        </div>
+                      </div>
                     <div>
                       <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Total</p>
                       <p className="text-sm font-bold">{formatPrice(Number(o.total_amount))}</p>

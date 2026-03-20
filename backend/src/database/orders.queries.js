@@ -8,16 +8,25 @@
 
 const createTableOrders = `
 CREATE TABLE IF NOT EXISTS orders (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    product_id INTEGER,
-    quantity INTEGER DEFAULT 1,
-    total_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    razorpay_order_id VARCHAR(255),
-    status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
-    notes TEXT,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  product_id INTEGER,
+  quantity INTEGER DEFAULT 1,
+  total_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  razorpay_order_id VARCHAR(255),
+  status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+  notes TEXT,
+  phone VARCHAR(32),
+  first_name VARCHAR(128),
+  last_name VARCHAR(128),
+  shipping_address TEXT,
+  shipping_city VARCHAR(128),
+  shipping_state VARCHAR(128),
+  shipping_pincode VARCHAR(32),
+  shipping_phone VARCHAR(32),
+  is_guest BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 )
 `;
 
@@ -25,7 +34,7 @@ const getAllOrders = `
 SELECT 
     o.*, 
     u.email as customer_email, 
-    CONCAT(u.firstname, ' ', u.lastname) as customer_name,
+    COALESCE(CONCAT(u.firstname, ' ', u.lastname), o.first_name) as customer_name,
     p.name as product_name,
     COALESCE(
       (SELECT json_agg(json_build_object('image_url', pi.image_url)) 
@@ -42,7 +51,7 @@ const getOrderById = `
 SELECT 
     o.*, 
     u.email as customer_email, 
-    CONCAT(u.firstname, ' ', u.lastname) as customer_name,
+    COALESCE(CONCAT(u.firstname, ' ', u.lastname), o.first_name) as customer_name,
     p.name as product_name,
     COALESCE(
       (SELECT json_agg(json_build_object('image_url', pi.image_url)) 
@@ -60,8 +69,8 @@ SELECT * FROM orders WHERE razorpay_order_id = $1
 `;
 
 const createOrder = `
-INSERT INTO orders (user_id, product_id, quantity, total_amount, razorpay_order_id, status)
-VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
+INSERT INTO orders (user_id, product_id, quantity, total_amount, razorpay_order_id, status, first_name, last_name, shipping_address, shipping_city, shipping_state, shipping_pincode, shipping_phone, is_guest)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *
 `;
 
 const updateOrderStatus = `
