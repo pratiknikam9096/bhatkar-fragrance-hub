@@ -11,7 +11,6 @@ import {
   ChevronRight,
   Minus,
   Plus,
-  Check,
   ChevronLeft,
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -456,14 +455,8 @@ export default function ProductDetail() {
                       <span className="font-medium">+ {formatPrice((product.shipping_cost + product.other_charges) * quantity)}</span>
                     </div>
                   )}
-                  <div className="flex justify-between border-t border-border/50 pt-2">
-                    <span className="font-semibold">Final Total:</span>
-                    <span className="text-lg font-bold text-primary">
-                      {formatPrice(
-                        (variantPrice + product.shipping_cost + product.other_charges) * quantity
-                      )}
-                    </span>
-                  </div>
+                  {/* Final Total intentionally hidden for a cleaner, premium UI */}
+                  {/* Final Total calculation is commented out */}
                 </div>
               </div>
 
@@ -533,28 +526,8 @@ export default function ProductDetail() {
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
-                  <span className="text-muted-foreground">
-                    {availableStock > 0 ? (
-                      <div className="flex items-center gap-2">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${availableStock > 10
-                          ? 'bg-green-100 text-green-800'
-                          : availableStock > 3
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-red-100 text-red-800'
-                          }`}>
-                          <Check className="h-3 w-3 mr-1" />
-                          {availableStock} available
-                        </span>
-                        {availableStock <= 3 && (
-                          <span className="text-xs text-destructive font-medium">Low stock!</span>
-                        )}
-                      </div>
-                    ) : (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                        Out of Stock
-                      </span>
-                    )}
-                  </span>
+                  {/* Stock availability badge removed from UI for premium look.
+                      Stock logic retained for validation and quantity limits. */}
                 </div>
                 {availableStock > 0 && quantity > availableStock && (
                   <p className="text-xs text-destructive mt-2">
@@ -620,7 +593,7 @@ export default function ProductDetail() {
                 <div className="grid md:grid-cols-3 gap-8">
                   {[
                     { type: "Top Notes", notes: product.notes.top, desc: "First impression, lasts 15-30 mins" },
-                    { type: "Heart Notes", notes: product.notes.middle, desc: "The core, emerges after 30 mins" },
+                    { type: "Middle Notes", notes: product.notes.middle, desc: "The core, emerges after 30 mins" },
                     { type: "Base Notes", notes: product.notes.base, desc: "The foundation, lasts for hours" },
                   ].map((noteGroup, index) => (
                     <motion.div
