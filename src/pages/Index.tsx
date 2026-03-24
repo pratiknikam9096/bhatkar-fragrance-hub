@@ -8,14 +8,21 @@ import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 
 const Index = () => {
   return (
-    <Layout>
-      <ParallaxHeroSection />
-      <ProductHighlights />
-      <DashboardStats />
-      <CollectionsSection />
-      <WhyUsSection />
-      <TestimonialsSection />
-    </Layout>
+    <div
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{
+        backgroundImage: "url('/images/backgound.png')",
+      }}
+    >
+      <Layout>
+        <ParallaxHeroSection />
+        <ProductHighlights />
+        <DashboardStats />
+        <CollectionsSection />
+        <WhyUsSection />
+        <TestimonialsSection />
+      </Layout>
+    </div>
   );
 };
 

@@ -81,14 +81,20 @@ function Header() {
     }
   }, [searchParams, setSearchParams, isAuthenticated]);
 
+  const isHome = location.pathname === "/";
+
+  const headerBgClass = scrolled
+    ? "bg-white/80 dark:bg-slate-950/80 border-b border-gray-200/50 dark:border-slate-800/30 shadow-lg"
+    : isHome
+      ? "bg-transparent border-none"
+      : "bg-white/60 dark:bg-slate-950/40 border-b border-gray-200/30 dark:border-slate-800/20";
+
   return (
     <>
       {/* Main Header - Luxury Glassmorphism Design */}
       <header className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
-        scrolled
-          ? "bg-white/80 dark:bg-slate-950/80 border-b border-gray-200/50 dark:border-slate-800/30 shadow-lg"
-          : "bg-white/60 dark:bg-slate-950/40 border-b border-gray-200/30 dark:border-slate-800/20"
+        headerBgClass
       )}
       style={{
         backdropFilter: "blur(12px)",
