@@ -330,14 +330,16 @@ export default function ProductDetail() {
             {/* Product Info - takes 1 column on mobile, 1 on tablet, 2 on desktop */}
             <div className="md:col-span-1 lg:col-span-2">
               {/* Badges */}
-              <div className="flex gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {product.is_best_seller && (
-                  <Badge className="bg-accent text-accent-foreground">
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-md border border-white/25 bg-orange-600 text-white">
                     Best Seller
                   </Badge>
                 )}
                 {product.is_luxury_product && (
-                  <Badge className="bg-charcoal text-ivory">Luxury</Badge>
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-md border border-white/25 bg-violet-600 text-white">
+                    Luxury
+                  </Badge>
                 )}
               </div>
 
