@@ -4,13 +4,7 @@ import { Button } from "@/components/ui/button";
 export function ParallaxHeroSection() {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center text-center overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/backgound.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
+      className="relative min-h-screen flex items-center justify-center text-center overflow-hidden bg-[url('/images/backgound-mobile.png')] lg:bg-[url('/images/backgound.png')] bg-cover bg-center bg-no-repeat"
     >
       <div className="absolute inset-0 bg-black/40" />
 

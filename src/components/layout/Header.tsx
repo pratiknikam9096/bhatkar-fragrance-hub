@@ -86,13 +86,12 @@ function Header() {
   const headerBgClass = scrolled
     ? "bg-white/80 dark:bg-slate-950/80 border-b border-gray-200/50 dark:border-slate-800/30 shadow-lg"
     : isHome
-      ? "bg-[url('/images/backgound.png')] bg-cover bg-center border-none"
+      ? "bg-gradient-to-b from-[#0a0e1f]/80 via-[#1b2438]/70 to-transparent border-none"
       : "bg-white/60 dark:bg-slate-950/40 border-b border-gray-200/30 dark:border-slate-800/20";
 
   const headerStyle = {
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
-    backgroundAttachment: isHome && !scrolled ? "scroll" : undefined,
   };
 
   return (
