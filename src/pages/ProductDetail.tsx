@@ -351,16 +351,6 @@ export default function ProductDetail() {
                 <h1 className="font-display text-4xl md:text-5xl font-bold">
                   {product.name}
                 </h1>
-                {product.is_best_seller && (
-                  <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 text-base px-3 py-1 flex items-center gap-1">
-                    ⭐ Best Seller
-                  </Badge>
-                )}
-                {product.is_luxury_product && (
-                  <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 text-base px-3 py-1 flex items-center gap-1">
-                    💎 Luxury
-                  </Badge>
-                )}
               </div>
 
               {/* Net Quantity / Size display similar to mobile screenshot */}

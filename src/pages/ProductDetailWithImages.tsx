@@ -324,7 +324,7 @@ export default function ProductDetailWithImages() {
               {/* Price */}
               <div>
                 <p className="text-3xl font-bold text-foreground">
-                  ₹{formatPrice(currentPrice)}
+                  {formatPrice(currentPrice)}
                 </p>
               </div>
 
