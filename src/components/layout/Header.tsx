@@ -86,20 +86,24 @@ function Header() {
   const headerBgClass = scrolled
     ? "bg-white/80 dark:bg-slate-950/80 border-b border-gray-200/50 dark:border-slate-800/30 shadow-lg"
     : isHome
-      ? "bg-transparent border-none"
+      ? "bg-[url('/images/backgound.png')] bg-cover bg-center border-none"
       : "bg-white/60 dark:bg-slate-950/40 border-b border-gray-200/30 dark:border-slate-800/20";
+
+  const headerStyle = {
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+    backgroundAttachment: isHome && !scrolled ? "scroll" : undefined,
+  };
 
   return (
     <>
       {/* Main Header - Luxury Glassmorphism Design */}
-      <header className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
-        headerBgClass
-      )}
-      style={{
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-      }}
+      <header
+        className={cn(
+          "sticky top-0 z-50 w-full transition-all duration-300",
+          headerBgClass
+        )}
+        style={headerStyle}
       >
         
         {/* Header Container */}
