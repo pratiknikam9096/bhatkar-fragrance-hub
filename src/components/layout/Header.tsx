@@ -10,7 +10,7 @@ import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
-import ThemeToggle from "@/components/ui/ThemeToggle";
+// import ThemeToggle from "@/components/ui/ThemeToggle";
 
 // Using public logo asset
 
@@ -195,7 +195,7 @@ function Header() {
               {/* Desktop: Theme + Wishlist + Auth/Profile */}
               <div className="hidden md:flex items-center gap-2">
                 {/* Theme Toggle */}
-                <ThemeToggle />
+                {/* <ThemeToggle /> */}
 
                 {/* Wishlist Button */}
                 <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
@@ -375,7 +375,7 @@ function Header() {
 
                 {/* Mobile Footer Actions */}
                 <div className="flex items-center gap-2 pt-2">
-                  <ThemeToggle />
+                  {/* <ThemeToggle /> */}
                   {isAuthenticated ? (
                     <ProfileMenu />
                   ) : (
