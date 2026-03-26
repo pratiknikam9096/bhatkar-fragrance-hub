@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
-import { ParallaxHeroSection } from "@/components/home/ParallaxHeroSection";
+import { HeroSection } from "@/components/home/HeroSection";
 import { ProductHighlights } from "@/components/home/ProductHighlights";
 import { DashboardStats } from "@/components/home/DashboardStats";
 import { CollectionsSection } from "@/components/home/CollectionsSection";
@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 const Index = () => {
   return (
     <Layout>
-      <ParallaxHeroSection />
+      <HeroSection />
       <CollectionsSection />
       <WhyUsSection />
       <TestimonialsSection />
