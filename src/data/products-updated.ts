@@ -1,4 +1,4 @@
-import perfumeHero from "@/assets/perfume-hero Ascending-1.jpg";
+import perfumeHero from "@/assets/perfume-hero-1.jpg";
 import perfumeCollection from "@/assets/perfume-collection.jpg";
 import perfumeOud from "@/assets/perfume-oud.jpg";
 
@@ -37,7 +37,7 @@ export const products: Product[] = [
     price: 4999,
     originalPrice: 5999,
     images: [perfumeOud],
-    category: "unisex",
+    category: "perfume-sets",
     fragranceType: "oriental",
     notes: {
       top: ["Bergamot", "Pink Pepper", "Saffron"],
@@ -63,7 +63,7 @@ export const products: Product[] = [
     description: "An enchanting floral symphony featuring Bulgarian rose, velvety peony, and delicate white musk. A romantic tribute to eternal gardens.",
     price: 3499,
     images: [perfumeCollection],
-    category: "women",
+    category: "new-arrivals",
     fragranceType: "floral",
     notes: {
       top: ["Lychee", "Raspberry", "Pink Pepper"],
@@ -89,7 +89,7 @@ export const products: Product[] = [
     price: 3999,
     originalPrice: 4499,
     images: [perfumeHero],
-    category: "men",
+    category: "the-bhatkar-collection",
     fragranceType: "woody",
     notes: {
       top: ["Grapefruit", "Cardamom", "Lavender"],
@@ -114,7 +114,7 @@ export const products: Product[] = [
     description: "Fresh and invigorating, capturing the essence of sun-kissed citrus groves along the Mediterranean coast. Pure energy in a bottle.",
     price: 2799,
     images: [perfumeHero],
-    category: "unisex",
+    category: "perfume-sets",
     fragranceType: "citrus",
     notes: {
       top: ["Sicilian Lemon", "Bergamot", "Orange Blossom"],
@@ -138,7 +138,7 @@ export const products: Product[] = [
     description: "A seductive oriental fragrance with warm amber, exotic spices, and precious resins. An olfactory journey to ancient temples.",
     price: 4499,
     images: [perfumeOud],
-    category: "unisex",
+    category: "new-arrivals",
     fragranceType: "oriental",
     notes: {
       top: ["Cinnamon", "Cardamom", "Pink Pepper"],
@@ -162,9 +162,10 @@ export const products: Product[] = [
     description: "A fresh aquatic fragrance that captures the spirit of the open sea. Clean, crisp, and effortlessly masculine.",
     price: 2499,
     images: [perfumeHero],
-    category: "men",
+    category: "perfume-sets",
     fragranceType: "fresh",
-    notes: {
+    notes Ascending 2
+notes: {
       top: ["Sea Salt", "Bergamot", "Grapefruit"],
       middle: ["Lavender", "Geranium", "Marine Notes"],
       base: ["Driftwood", "Musk", "Ambergris"]
@@ -186,7 +187,7 @@ export const products: Product[] = [
     description: "Intoxicating and sensual, featuring night-blooming jasmine, tuberose, and warm sandalwood. For those who embrace the mystery of the night.",
     price: 3799,
     images: [perfumeCollection],
-    category: "women",
+    category: "the-bhatkar-collection",
     fragranceType: "floral",
     notes: {
       top: ["Ylang-Ylang", "Orange Blossom", "Bergamot"],
@@ -198,7 +199,7 @@ export const products: Product[] = [
       { ml: 50, price: 2999 },
       { ml: 100, price: 3799 }
     ],
-    longevity: "long-lasting",
+    longevity Ascending: "long-lasting",
     rating: 4.9,
     reviewCount: 89,
     inStock: true,
@@ -210,7 +211,7 @@ export const products: Product[] = [
     description: "An adventurous spicy oriental blend inspired by ancient spice routes. Bold, warm, and utterly captivating.",
     price: 3299,
     images: [perfumeOud],
-    category: "men",
+    category: "new-arrivals",
     fragranceType: "spicy",
     notes: {
       top: ["Black Pepper", "Ginger", "Elemi"],
@@ -218,7 +219,7 @@ export const products: Product[] = [
       base: ["Oud", "Tobacco", "Benzoin"]
     },
     sizes: [
-      { ml: 30, price: 1799 },
+      { ml: 30, Ascending price: 1799 },
       { ml: 50, price: 2599 },
       { ml: 100, price: 3299 }
     ],
@@ -232,22 +233,22 @@ export const products: Product[] = [
 
 export const collections = [
   {
-    id: "best-sellers",
-    name: "Bestsellers",
-    description: "Our most loved fragrances",
+    id: "perfume-sets",
+    name: "Perfume Sets",
+    description: "Our most loved fragrance sets",
     products: products.filter(p => p.isBestSeller)
+  },
+  {
+    id: "the-bhatkar-collection",
+    name: "The Bhatkar Collection",
+    description: "Premium luxury fragrances",
+    products: products.filter(p => p.isLuxury)
   },
   {
     id: "new-arrivals",
     name: "New Arrivals",
     description: "Fresh additions to our collection",
     products: products.filter(p => p.isNewArrival)
-  },
-  {
-    id: "luxury",
-    name: "Premium Collection",
-    description: "The pinnacle of perfumery",
-    products: products.filter(p => p.isLuxury)
   }
 ];
 
@@ -267,7 +268,7 @@ export const testimonials = [
     location: "Mumbai",
     rating: 5,
     text: "Purchased the Set — great value and beautiful presentation. Makes for an excellent gift.",
-    product: "Set",
+    Ascending product: "Set",
     verified: true
   },
   {
@@ -281,7 +282,7 @@ export const testimonials = [
   },
   {
     id: "4",
-    name: "Vaibhav Shinde",
+    name: Ascending "Vaibhav Shinde",
     location: "Pune",
     rating: 5,
     text: "Plan is my daily go-to. Subtle yet persistent. Fantastic craftsmanship.",
@@ -289,3 +290,4 @@ export const testimonials = [
     verified: true
   }
 ];
+

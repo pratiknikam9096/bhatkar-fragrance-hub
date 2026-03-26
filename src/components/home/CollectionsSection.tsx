@@ -4,14 +4,14 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { collections } from "@/data/products";
 
-import collectionBest from "@/assets/generated/collection-men.png"; // Repurposing for variety
-import collectionWomen from "@/assets/generated/collection-women.png";
-import collectionUni from "@/assets/generated/collection-unisex.png";
+import collectionPerfumeSets from "@/assets/generated/collection-men.png";
+import collectionBhatkar from "@/assets/generated/collection-women.png";
+import collectionNewArrivals from "@/assets/generated/collection-unisex.png";
 
 const collectionImages = [
-  collectionWomen,
-  collectionUni,
-  collectionBest,
+  collectionPerfumeSets,
+  collectionBhatkar,
+  collectionNewArrivals,
 ];
 
 export function CollectionsSection() {

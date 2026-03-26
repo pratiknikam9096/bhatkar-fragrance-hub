@@ -29,9 +29,9 @@ import { useProducts } from "@/contexts/ProductContext";
 import { WeekendSaleHero } from "@/components/WeekendSaleHero";
 
 const categories = [
-  { value: "men", label: "Men" },
-  { value: "women", label: "Women" },
-  { value: "unisex", label: "Unisex" },
+  { value: "perfume-sets", label: "Perfume Sets" },
+  { value: "the-bhatkar-collection", label: "The Bhatkar Collection" },
+  { value: "new-arrivals", label: "New Arrivals" },
 ];
 
 // Fragrance-specific filters removed per UI request

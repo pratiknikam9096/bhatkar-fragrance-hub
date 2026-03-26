@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS products (
     other_charges DECIMAL(10, 2) DEFAULT 0,
     quantity_ml INTEGER DEFAULT 100,
     quantity_unit VARCHAR(10) DEFAULT 'ml',
-    category VARCHAR(20) NOT NULL CHECK (category IN ('Men', 'Women', 'Unisex')),
+CHECK (category IN ('Perfume Sets', 'The Bhatkar Collection', 'New Arrivals'))
     concentration VARCHAR(20) NOT NULL CHECK (concentration IN ('EDP', 'EDT', 'Parfum')),
     description TEXT,
     stock INTEGER DEFAULT 0,
