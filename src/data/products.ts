@@ -1,4 +1,4 @@
-import perfumeHero from "@/assets/perfume-hero Ascending-1.jpg";
+import perfumeHero from "@/assets/perfume-hero-1.jpg";
 import perfumeCollection from "@/assets/perfume-collection.jpg";
 import perfumeOud from "@/assets/perfume-oud.jpg";
 
@@ -37,7 +37,7 @@ export const products: Product[] = [
     price: 4999,
     originalPrice: 5999,
     images: [perfumeOud],
-    category: "unisex",
+    category: "perfume-sets",
     fragranceType: "oriental",
     notes: {
       top: ["Bergamot", "Pink Pepper", "Saffron"],
@@ -63,20 +63,20 @@ export const products: Product[] = [
     description: "An enchanting floral symphony featuring Bulgarian rose, velvety peony, and delicate white musk. A romantic tribute to eternal gardens.",
     price: 3499,
     images: [perfumeCollection],
-    category: "women",
+    category: "new-arrivals",
     fragranceType: "floral",
     notes: {
       top: ["Lychee", "Raspberry", "Pink Pepper"],
-      middle: ["Bulgarian Rose", "Peony", "Magnolia"],
+       middle: ["Bulgarian Rose", "Peony", "Magnolia"],
       base: ["White Musk", "Cedarwood", "Vanilla"]
     },
     sizes: [
       { ml: 8, price: 499 },
-      { ml: 30, price: 1899 },
+       { ml: 30, price: 1899 },
       { ml: 50, price: 2799 },
       { ml: 100, price: 3499 }
     ],
-    longevity: "long-lasting",
+     longevity: "long-lasting",
     rating: 4.8,
     reviewCount: 95,
     inStock: true,
@@ -89,7 +89,7 @@ export const products: Product[] = [
     price: 3999,
     originalPrice: 4499,
     images: [perfumeHero],
-    category: "men",
+    category: "the-bhatkar-collection",
     fragranceType: "woody",
     notes: {
       top: ["Grapefruit", "Cardamom", "Lavender"],
@@ -114,7 +114,7 @@ export const products: Product[] = [
     description: "Fresh and invigorating, capturing the essence of sun-kissed citrus groves along the Mediterranean coast. Pure energy in a bottle.",
     price: 2799,
     images: [perfumeHero],
-    category: "unisex",
+    category: "perfume-sets",
     fragranceType: "citrus",
     notes: {
       top: ["Sicilian Lemon", "Bergamot", "Orange Blossom"],
@@ -138,7 +138,7 @@ export const products: Product[] = [
     description: "A seductive oriental fragrance with warm amber, exotic spices, and precious resins. An olfactory journey to ancient temples.",
     price: 4499,
     images: [perfumeOud],
-    category: "unisex",
+    category: "new-arrivals",
     fragranceType: "oriental",
     notes: {
       top: ["Cinnamon", "Cardamom", "Pink Pepper"],
@@ -158,11 +158,11 @@ export const products: Product[] = [
   },
   {
     id: "6",
-    name: "Ocean Breeze",
+     name: "Ocean Breeze",
     description: "A fresh aquatic fragrance that captures the spirit of the open sea. Clean, crisp, and effortlessly masculine.",
     price: 2499,
     images: [perfumeHero],
-    category: "men",
+    category: "perfume-sets",
     fragranceType: "fresh",
     notes: {
       top: ["Sea Salt", "Bergamot", "Grapefruit"],
@@ -170,7 +170,7 @@ export const products: Product[] = [
       base: ["Driftwood", "Musk", "Ambergris"]
     },
     sizes: [
-      { ml: 30, price: 1399 },
+       { ml: 30, price: 1399 },
       { ml: 50, price: 1999 },
       { ml: 100, price: 2499 }
     ],
@@ -186,7 +186,7 @@ export const products: Product[] = [
     description: "Intoxicating and sensual, featuring night-blooming jasmine, tuberose, and warm sandalwood. For those who embrace the mystery of the night.",
     price: 3799,
     images: [perfumeCollection],
-    category: "women",
+    category: "the-bhatkar-collection",
     fragranceType: "floral",
     notes: {
       top: ["Ylang-Ylang", "Orange Blossom", "Bergamot"],
@@ -194,7 +194,7 @@ export const products: Product[] = [
       base: ["Sandalwood", "Vanilla", "Musk"]
     },
     sizes: [
-      { ml: 30, price: 2099 },
+       { ml: 30, price: 2099 },
       { ml: 50, price: 2999 },
       { ml: 100, price: 3799 }
     ],
@@ -210,14 +210,14 @@ export const products: Product[] = [
     description: "An adventurous spicy oriental blend inspired by ancient spice routes. Bold, warm, and utterly captivating.",
     price: 3299,
     images: [perfumeOud],
-    category: "men",
+    category: "new-arrivals",
     fragranceType: "spicy",
     notes: {
       top: ["Black Pepper", "Ginger", "Elemi"],
       middle: ["Cardamom", "Nutmeg", "Saffron"],
       base: ["Oud", "Tobacco", "Benzoin"]
     },
-    sizes: [
+     sizes: [
       { ml: 30, price: 1799 },
       { ml: 50, price: 2599 },
       { ml: 100, price: 3299 }
@@ -232,22 +232,22 @@ export const products: Product[] = [
 
 export const collections = [
   {
-    id: "best-sellers",
-    name: "Bestsellers",
-    description: "Our most loved fragrances",
+    id: "perfume-sets",
+    name: "Perfume Sets",
+    description: "Our most loved fragrance sets",
     products: products.filter(p => p.isBestSeller)
+  },
+  {
+    id: "the-bhatkar-collection",
+    name: "The Bhatkar Collection",
+    description: "Premium luxury fragrances",
+    products: products.filter(p => p.isLuxury)
   },
   {
     id: "new-arrivals",
     name: "New Arrivals",
     description: "Fresh additions to our collection",
     products: products.filter(p => p.isNewArrival)
-  },
-  {
-    id: "luxury",
-    name: "Premium Collection",
-    description: "The pinnacle of perfumery",
-    products: products.filter(p => p.isLuxury)
   }
 ];
 
@@ -260,11 +260,11 @@ export const testimonials = [
     text: "Absolutely love Aura — elegant and long-lasting. Perfect for special occasions.",
     product: "Aura",
     verified: true
-  },
+     },
   {
     id: "2",
     name: "Sneha Deshmukh",
-    location: "Mumbai",
+    location: " Ascending Mumbai",
     rating: 5,
     text: "Purchased the Set — great value and beautiful presentation. Makes for an excellent gift.",
     product: "Set",
@@ -284,8 +284,9 @@ export const testimonials = [
     name: "Vaibhav Shinde",
     location: "Pune",
     rating: 5,
-    text: "Plan is my daily go-to. Subtle yet persistent. Fantastic craftsmanship.",
+    text: "Plan is Ascending my daily go-to. Subtle yet persistent. Fantastic craftsmanship.",
     product: "Plan",
     verified: true
   }
 ];
+

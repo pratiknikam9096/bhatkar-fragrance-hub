@@ -34,48 +34,46 @@ export function CollectionsSection() {
           </p>
         </motion.div>
 
-        {/* Collections Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {collections.map((collection, index) => (
-            <motion.div
-              key={collection.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-            >
-              <Link
-                to={`/shop?collection=${collection.id}`}
-                className="group block relative overflow-hidden rounded-xl aspect-[4/5] sm:aspect-[3/4]"
+        {/* Horizontal Scrollable Category Section */}
+        <div
+          className="flex gap-6 overflow-x-auto no-scrollbar pb-2 md:pb-4 -mx-4 px-4 snap-x snap-mandatory"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          {collections.map((collection, index) => {
+            const isNewArrivals = collection.id === "new-arrivals";
+            return (
+              <motion.div
+                key={collection.id}
+                className="snap-start shrink-0 w-64 md:w-80 relative group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
               >
-                {/* Background Image */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                  style={{
-                    backgroundImage: `url(${collectionImages[index]})`,
-                  }}
-                />
-
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-transparent" />
-
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-8">
-                  {/* Subtitle intentionally removed to keep cards clean */}
-                  <h3 className="font-display text-2xl md:text-3xl font-bold text-ivory mb-2">
-                    {collection.name}
-                  </h3>
-                  <p className="text-ivory/80 text-sm mb-4">
-                    {collection.description}
-                  </p>
-                  <div className="flex items-center text-primary group-hover:translate-x-2 transition-transform duration-300">
-                    <span className="text-sm font-medium">Explore Collection</span>
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                <Link
+                  to={`/shop?collection=${collection.id}`}
+                  className={`block overflow-hidden rounded-2xl shadow-lg relative aspect-[4/5] bg-cover bg-center group-hover:scale-105 transition-transform duration-500 ${isNewArrivals ? 'ring-2 ring-gold animate-glow' : ''}`}
+                  style={{ backgroundImage: `url(${collectionImages[index]})` }}
+                >
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10" />
+                  {/* Category Name Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col items-start">
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-ivory drop-shadow mb-1">
+                      {collection.name}
+                    </h3>
+                    <span className="text-ivory/80 text-sm font-medium drop-shadow">
+                      {collection.description}
+                    </span>
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                  {/* Glow animation for New Arrivals */}
+                  {isNewArrivals && (
+                    <span className="absolute inset-0 rounded-2xl pointer-events-none animate-pulse-glow" />
+                  )}
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View All Button */}
@@ -94,6 +92,18 @@ export function CollectionsSection() {
           </Button>
         </motion.div>
       </div>
+      {/* Custom styles for no-scrollbar and glow animation */}
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-glow {
+          0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+          70% { box-shadow: 0 0 24px 12px rgba(255, 215, 0, 0.25); }
+          100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+        }
+        .animate-glow { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); animation: pulse-glow 2.5s infinite; }
+        .animate-pulse-glow { animation: pulse-glow 2.5s infinite; }
+      `}</style>
     </section>
   );
 }
