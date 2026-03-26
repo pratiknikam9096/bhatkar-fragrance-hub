@@ -357,7 +357,7 @@ export default function Checkout() {
                     <div>
                       <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
                         <p className="text-sm text-blue-800">
-                          💳 Pay ₹{formatPrice((totalPrice * 1.1))} using your preferred method
+                          💳 Pay {formatPrice((totalPrice * 1.1))} using your preferred method
                         </p>
                       </div>
                       <CheckoutPayment
@@ -375,7 +375,7 @@ export default function Checkout() {
                         guestAddress={formData.address}
                         onSuccess={handlePaymentSuccess}
                         onError={handlePaymentError}
-                        buttonText={`Pay ₹${formatPrice((totalPrice * 1.1))}`}
+                        buttonText={`Pay ${formatPrice((totalPrice * 1.1))}`}
                         buttonClassName="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 font-medium disable:opacity-60"
                       />
                       <Button

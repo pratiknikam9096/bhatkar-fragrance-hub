@@ -118,13 +118,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             {isStatic && (
               <div className="absolute left-3 top-3 flex flex-col gap-2">
                 {(product as Product).isNewArrival && (
-                  <Badge className="bg-primary text-primary-foreground">New</Badge>
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-sm border border-white/25 bg-primary text-primary-foreground">New</Badge>
                 )}
                 {(product as Product).isBestSeller && (
-                  <Badge className="bg-accent text-accent-foreground">Best Seller</Badge>
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-sm border border-white/25 bg-orange-600 text-white">Best Seller</Badge>
                 )}
                 {(product as Product).isLuxury && (
-                  <Badge className="bg-charcoal text-ivory">Luxury</Badge>
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-sm border border-white/25 bg-violet-600 text-white">Luxury</Badge>
                 )}
                 {(product as Product).originalPrice && (
                   <Badge className="bg-destructive text-destructive-foreground">
@@ -238,11 +238,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             {/* Price */}
             <div className="flex items-center gap-2 mb-3">
               <span className="text-lg font-semibold text-primary">
-                ₹{formatPrice(productPrice)}
+                {formatPrice(productPrice)}
               </span>
               {isStatic && (product as Product).originalPrice && (
                 <span className="text-sm text-muted-foreground line-through">
-                  ₹{formatPrice((product as Product).originalPrice)}
+                  {formatPrice((product as Product).originalPrice)}
                 </span>
               )}
             </div>

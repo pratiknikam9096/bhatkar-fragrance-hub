@@ -330,14 +330,16 @@ export default function ProductDetail() {
             {/* Product Info - takes 1 column on mobile, 1 on tablet, 2 on desktop */}
             <div className="md:col-span-1 lg:col-span-2">
               {/* Badges */}
-              <div className="flex gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {product.is_best_seller && (
-                  <Badge className="bg-accent text-accent-foreground">
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-md border border-white/25 bg-orange-600 text-white">
                     Best Seller
                   </Badge>
                 )}
                 {product.is_luxury_product && (
-                  <Badge className="bg-charcoal text-ivory">Luxury</Badge>
+                  <Badge className="text-xs sm:text-sm font-semibold uppercase px-3 py-1 rounded-full shadow-md border border-white/25 bg-violet-600 text-white">
+                    Luxury
+                  </Badge>
                 )}
               </div>
 
@@ -351,16 +353,6 @@ export default function ProductDetail() {
                 <h1 className="font-display text-4xl md:text-5xl font-bold">
                   {product.name}
                 </h1>
-                {product.is_best_seller && (
-                  <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 text-base px-3 py-1 flex items-center gap-1">
-                    ⭐ Best Seller
-                  </Badge>
-                )}
-                {product.is_luxury_product && (
-                  <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 text-base px-3 py-1 flex items-center gap-1">
-                    💎 Luxury
-                  </Badge>
-                )}
               </div>
 
               {/* Net Quantity / Size display similar to mobile screenshot */}

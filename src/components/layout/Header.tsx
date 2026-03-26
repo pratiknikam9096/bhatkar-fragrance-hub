@@ -49,6 +49,7 @@ const itemVariants = {
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const { toggleCart, totalItems } = useCart();
   const { items: wishlistItems } = useWishlist();
@@ -56,6 +57,16 @@ function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // Track scroll position for navbar enhancement
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Open auth modal when ?login=true is present in URL (useful for checkout redirects)
   useEffect(() => {
@@ -70,10 +81,29 @@ function Header() {
     }
   }, [searchParams, setSearchParams, isAuthenticated]);
 
+  const isHome = location.pathname === "/";
+
+  const headerBgClass = scrolled
+    ? "bg-white/80 dark:bg-slate-950/80 border-b border-gray-200/50 dark:border-slate-800/30 shadow-lg"
+    : isHome
+      ? "bg-gradient-to-b from-[#0a0e1f]/80 via-[#1b2438]/70 to-transparent border-none"
+      : "bg-white/60 dark:bg-slate-950/40 border-b border-gray-200/30 dark:border-slate-800/20";
+
+  const headerStyle = {
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+  };
+
   return (
     <>
-      {/* Main Header - Google Inspired Design */}
-      <header className="sticky top-0 z-50 w-full bg-white/95 dark:bg-slate-950/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90 dark:supports-[backdrop-filter]:bg-slate-950/90 border-b border-gray-200 dark:border-slate-800/50 transition-all duration-300 shadow-sm">
+      {/* Main Header - Luxury Glassmorphism Design */}
+      <header
+        className={cn(
+          "sticky top-0 z-50 w-full transition-all duration-300",
+          headerBgClass
+        )}
+        style={headerStyle}
+      >
         
         {/* Header Container */}
         <div className="mx-auto w-full px-3 sm:px-4 md:px-6 lg:px-8">
