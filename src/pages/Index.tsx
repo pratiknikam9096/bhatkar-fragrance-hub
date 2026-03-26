@@ -10,8 +10,6 @@ const Index = () => {
   return (
     <Layout>
       <ParallaxHeroSection />
-      <ProductHighlights />
-      <DashboardStats />
       <CollectionsSection />
       <WhyUsSection />
       <TestimonialsSection />
