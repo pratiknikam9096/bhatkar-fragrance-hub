@@ -8,7 +8,7 @@ import sixPerfumeBottles1 from "@/assets/categories/Six_perfume_bottles_1.png";
 import sixPerfumeBottles2 from "@/assets/categories/Six_perfume_bottles_2.png";
 
 export function HeroSection() {
-  // Carousel images and text
+  // Category images and text
   const heroSlides = [
     {
       image: luxuryPerfumeSet,
@@ -28,55 +28,64 @@ export function HeroSection() {
     }
   ];
 
-  // Auto-scroll logic
-  const [current, setCurrent] = React.useState(0);
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % heroSlides.length);
-    }, 3500);
+  // Horizontal scroll ref and auto-scroll logic
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const scroll = () => {
+      if (!scrollRef.current) return;
+      const container = scrollRef.current;
+      const scrollAmount = container.offsetWidth * 0.8;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    };
+    const interval = setInterval(scroll, 3500);
     return () => clearInterval(interval);
-  }, [heroSlides.length]);
+  }, []);
 
   return (
     <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-background">
-      {/* Horizontal Auto-Scrolling Carousel */}
-      <div className="w-full h-full flex items-center justify-center relative">
+      {/* Horizontal Scrollable Category Row */}
+      <div
+        ref={scrollRef}
+        className="flex flex-row gap-8 overflow-x-auto no-scrollbar w-full px-4 py-8 items-center snap-x snap-mandatory"
+        style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+      >
         {heroSlides.map((slide, idx) => (
           <motion.div
             key={slide.title}
-            className={`absolute w-full h-full flex items-center justify-center transition-opacity duration-700 ${current === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-            animate={{ opacity: current === idx ? 1 : 0 }}
-            transition={{ duration: 0.7 }}
+            className={`shrink-0 w-[85vw] max-w-[420px] md:w-[420px] relative group snap-start`}
+            whileHover={{ scale: 1.04 }}
+            transition={{ duration: 0.4 }}
           >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className={`object-cover w-full h-[60vh] md:h-[80vh] rounded-3xl shadow-xl transition-transform duration-700 ${current === idx ? 'scale-100' : 'scale-105'} ${slide.highlight ? 'ring-4 ring-gold animate-glow' : ''}`}
-              style={{ maxWidth: '1100px', filter: 'brightness(0.92)' }}
-            />
-            {/* Overlay Text */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-3xl">
-              <h1 className="text-4xl md:text-6xl font-extrabold text-ivory drop-shadow mb-4 text-center tracking-tight">
-                {slide.title}
-              </h1>
-              <p className="text-lg md:text-2xl text-gold font-medium mb-8 text-center drop-shadow">
-                {slide.subtitle}
-              </p>
-              <Button asChild size="lg" variant="gold">
-                <Link to={`/shop?collection=${slide.title.toLowerCase().replace(/ /g, '-')}`}>
-                  Explore Collection <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-            {/* Glow animation for New Arrivals */}
-            {slide.highlight && (
-              <span className="absolute inset-0 rounded-3xl pointer-events-none animate-pulse-glow" />
-            )}
+            <Link to={`/shop?collection=${slide.title.toLowerCase().replace(/ /g, '-')}`}
+              className={`block overflow-hidden rounded-3xl shadow-xl relative h-[60vw] max-h-[420px] md:h-[420px] bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${slide.highlight ? 'ring-4 ring-gold animate-glow' : ''}`}
+              style={{ backgroundImage: `url(${slide.image})` }}
+            >
+              {/* Overlay Text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-3xl">
+                <h1 className="text-3xl md:text-5xl font-extrabold text-ivory drop-shadow mb-3 text-center tracking-tight">
+                  {slide.title}
+                </h1>
+                <p className="text-base md:text-xl text-gold font-medium mb-6 text-center drop-shadow">
+                  {slide.subtitle}
+                </p>
+                <Button asChild size="lg" variant="gold">
+                  <span>
+                    Explore Collection <ArrowRight className="ml-2 h-5 w-5" />
+                  </span>
+                </Button>
+              </div>
+              {/* Glow animation for New Arrivals */}
+              {slide.highlight && (
+                <span className="absolute inset-0 rounded-3xl pointer-events-none animate-pulse-glow" />
+              )}
+            </Link>
           </motion.div>
         ))}
       </div>
-      {/* Custom styles for glow animation */}
+      {/* Custom styles for glow animation and no-scrollbar */}
       <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes pulse-glow {
           0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
           70% { box-shadow: 0 0 48px 24px rgba(255, 215, 0, 0.18); }
