@@ -28,44 +28,71 @@ export function HeroSection() {
     }
   ];
 
-  // Horizontal scroll ref and auto-scroll logic
+  // Horizontal scroll ref and improved auto-scroll logic
   const scrollRef = useRef<HTMLDivElement>(null);
+  const autoScrollInterval = useRef<NodeJS.Timeout | null>(null);
+  const isHovering = useRef(false);
+
+  // Helper to scroll to the next card with snap
+  const scrollToNext = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const card = container.querySelector('.hero-card');
+    if (!card) return;
+    const cardWidth = (card as HTMLElement).offsetWidth + 24; // 24px gap
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    let next = container.scrollLeft + cardWidth;
+    if (next > maxScroll - 10) next = 0; // Loop to start
+    container.scrollTo({ left: next, behavior: 'smooth' });
+  };
+
+  // Auto-scroll with pause on hover
   useEffect(() => {
-    const scroll = () => {
-      if (!scrollRef.current) return;
-      const container = scrollRef.current;
-      const scrollAmount = container.offsetWidth * 0.8;
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    const startAutoScroll = () => {
+      if (autoScrollInterval.current) clearInterval(autoScrollInterval.current);
+      autoScrollInterval.current = setInterval(() => {
+        if (!isHovering.current) scrollToNext();
+      }, 3500);
     };
-    const interval = setInterval(scroll, 3500);
-    return () => clearInterval(interval);
+    startAutoScroll();
+    return () => {
+      if (autoScrollInterval.current) clearInterval(autoScrollInterval.current);
+    };
   }, []);
 
+  // Pause auto-scroll on hover
+  const handleMouseEnter = () => { isHovering.current = true; };
+  const handleMouseLeave = () => { isHovering.current = false; };
+
   return (
-    <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-x-visible bg-background">
       {/* Horizontal Scrollable Category Row */}
       <div
         ref={scrollRef}
-        className="flex flex-row gap-8 overflow-x-auto no-scrollbar w-full px-4 py-8 items-center snap-x snap-mandatory"
-        style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+        className="flex flex-row gap-6 overflow-x-auto no-scrollbar w-full px-6 py-8 items-center snap-x snap-mandatory"
+        style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', paddingLeft: '5vw', paddingRight: '5vw' }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleMouseEnter}
+        onTouchEnd={handleMouseLeave}
       >
         {heroSlides.map((slide, idx) => (
           <motion.div
             key={slide.title}
-            className={`shrink-0 w-[85vw] max-w-[420px] md:w-[420px] relative group snap-start`}
+            className={`hero-card shrink-0 w-[75vw] max-w-[340px] md:w-[340px] relative group snap-center`}
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.4 }}
           >
             <Link to={`/shop?collection=${slide.title.toLowerCase().replace(/ /g, '-')}`}
-              className={`block overflow-hidden rounded-3xl shadow-xl relative h-[60vw] max-h-[420px] md:h-[420px] bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${slide.highlight ? 'ring-4 ring-gold animate-glow' : ''}`}
+              className={`block overflow-hidden rounded-3xl shadow-xl relative h-[54vw] max-h-[340px] md:h-[340px] bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${slide.highlight ? 'ring-4 ring-gold animate-glow' : ''}`}
               style={{ backgroundImage: `url(${slide.image})` }}
             >
               {/* Overlay Text */}
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-3xl">
-                <h1 className="text-3xl md:text-5xl font-extrabold text-ivory drop-shadow mb-3 text-center tracking-tight">
+                <h1 className="text-2xl md:text-4xl font-extrabold text-ivory drop-shadow mb-3 text-center tracking-tight">
                   {slide.title}
                 </h1>
-                <p className="text-base md:text-xl text-gold font-medium mb-6 text-center drop-shadow">
+                <p className="text-base md:text-lg text-gold font-medium mb-6 text-center drop-shadow">
                   {slide.subtitle}
                 </p>
                 <Button asChild size="lg" variant="gold">
