@@ -65,7 +65,7 @@ export function HeroSection() {
   const handleMouseLeave = () => { isHovering.current = false; };
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-x-visible bg-background">
+    <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-x-visible">
       {/* Horizontal Scrollable Category Row */}
       <div
         ref={scrollRef}
@@ -88,7 +88,7 @@ export function HeroSection() {
               style={{ backgroundImage: `url(${slide.image})` }}
             >
               {/* Overlay Text */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-3xl">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/80 via-black/40 to-transparent rounded-3xl z-10">
                 <h1 className="text-2xl md:text-4xl font-extrabold text-ivory drop-shadow mb-3 text-center tracking-tight">
                   {slide.title}
                 </h1>
