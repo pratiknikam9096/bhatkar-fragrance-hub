@@ -3,11 +3,13 @@ import { ArrowRight, Sparkles, Flower2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useRef, useEffect } from "react";
-import luxuryPerfumeSet from "@/assets/categories/Luxury_perfume_set_202603241824 (1).png";
-import sixPerfumeBottles1 from "@/assets/categories/Six_perfume_bottles_202603241818 (1).png";
-import sixPerfumeBottles2 from "@/assets/categories/Six_perfume_bottles_202603241816 (1).png";
+import luxuryPerfumeSet from "../../assets/categories/Luxury_perfume_set.png";
+import sixPerfumeBottles1 from "../../assets/categories/Six_perfume_bottles_1.png";
+import sixPerfumeBottles2 from "../../assets/categories/Six_perfume_bottles_2.png";
 
 export function HeroSection() {
+    // Debug image paths
+    console.log('HeroSection images:', luxuryPerfumeSet, sixPerfumeBottles1, sixPerfumeBottles2);
   // Category images and text
   const heroSlides = [
     {
@@ -79,13 +81,13 @@ export function HeroSection() {
         {heroSlides.map((slide, idx) => (
           <motion.div
             key={slide.title}
-            className={`hero-card shrink-0 w-[75vw] max-w-[340px] md:w-[340px] relative group snap-center`}
+            className={`hero-card shrink-0 w-[80vw] max-w-[340px] md:w-[320px] relative group snap-start`}
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.4 }}
           >
             <Link to={`/shop?collection=${slide.title.toLowerCase().replace(/ /g, '-')}`}
-              className={`block overflow-hidden rounded-3xl shadow-xl relative h-[54vw] max-h-[340px] md:h-[340px] bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${slide.highlight ? 'ring-4 ring-gold animate-glow' : ''}`}
-              style={{ backgroundImage: `url(${slide.image})` }}
+              className={`block overflow-hidden rounded-3xl shadow-xl relative h-[54vw] max-h-[340px] md:h-[320px] transition-transform duration-700 group-hover:scale-105 ${slide.highlight ? 'ring-4 ring-gold animate-glow' : ''}`}
+              style={{ backgroundImage: `url(${slide.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               {/* Overlay Text */}
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/80 via-black/40 to-transparent rounded-3xl z-10">
