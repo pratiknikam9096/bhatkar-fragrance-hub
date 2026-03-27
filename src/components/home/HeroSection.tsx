@@ -3,9 +3,9 @@ import { ArrowRight, Sparkles, Flower2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useRef, useEffect } from "react";
-import luxuryPerfumeSet from "../../assets/categories/Luxury_perfume_set.png";
-import sixPerfumeBottles1 from "../../assets/categories/Six_perfume_bottles_1.png";
-import sixPerfumeBottles2 from "../../assets/categories/Six_perfume_bottles_2.png";
+import luxuryPerfumeSet from "@/assets/categories/Luxury_perfume_set_202603241824 (1).png";
+import sixPerfumeBottles1 from "@/assets/categories/Six_perfume_bottles_202603241818 (1).png";
+import sixPerfumeBottles2 from "@/assets/categories/Six_perfume_bottles_202603241816 (1).png";
 
 export function HeroSection() {
     // Debug image paths
