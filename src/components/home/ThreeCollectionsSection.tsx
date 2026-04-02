@@ -33,10 +33,10 @@ const collections = [
 
 export function ThreeCollectionsSection() {
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-b from-black via-gray-900 to-black">
-      <div className="container px-4 mx-auto">
+    <section className="py-16 md:py-24 bg-white">
+      <div className="container px-4 mx-auto max-w-7xl">
         {/* Collections Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
           {collections.map((collection, index) => (
             <motion.div
               key={collection.id}
@@ -44,29 +44,31 @@ export function ThreeCollectionsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group"
+              className="group h-full"
             >
-              <Link
-                to={collection.path}
-                className={`block overflow-hidden rounded-2xl relative aspect-square bg-cover bg-center shadow-lg hover:shadow-2xl transition-all duration-500 ${
-                  collection.highlight ? 'ring-2 ring-gold' : ''
+              <div
+                className={`h-full flex flex-col items-center justify-center rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border-2 bg-white ${
+                  collection.highlight 
+                    ? 'border-gold' 
+                    : 'border-gray-200 hover:border-gold'
                 }`}
-                style={{
-                  backgroundImage: `url(${collection.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }}
               >
-                {/* Dark overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10 group-hover:from-black/90 group-hover:via-black/50 transition-colors duration-500" />
+                {/* Image Container */}
+                <div className="w-full h-48 md:h-56 overflow-hidden bg-gray-100">
+                  <img
+                    src={collection.image}
+                    alt={collection.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
 
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-20 p-4">
+                {/* Content Container */}
+                <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-8 text-center w-full">
                   <motion.h3
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: index * 0.15 + 0.2 }}
-                    className="text-2xl md:text-3xl font-bold text-white text-center mb-3 drop-shadow-lg"
+                    className="text-2xl md:text-3xl font-bold text-gray-900 mb-3"
                   >
                     {collection.title}
                   </motion.h3>
@@ -75,7 +77,7 @@ export function ThreeCollectionsSection() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: index * 0.15 + 0.3 }}
-                    className="text-base md:text-lg text-gold font-medium text-center mb-6 drop-shadow-lg"
+                    className="text-base md:text-lg text-gold font-medium mb-6"
                   >
                     {collection.description}
                   </motion.p>
@@ -87,9 +89,12 @@ export function ThreeCollectionsSection() {
                     whileHover={{ scale: 1.05 }}
                   >
                     <Button 
-                      className="bg-gold hover:bg-gold/90 text-black font-semibold px-8 py-3 rounded-lg transition-all"
+                      className="bg-gold hover:bg-gold/90 text-black font-semibold px-8 py-2 rounded-lg transition-all"
+                      asChild
                     >
-                      Explore Collection <ArrowRight className="ml-2 h-4 w-4" />
+                      <Link to={collection.path}>
+                        Explore Collection <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
                     </Button>
                   </motion.div>
                 </div>
@@ -100,9 +105,9 @@ export function ThreeCollectionsSection() {
                     className="absolute inset-0 rounded-2xl pointer-events-none"
                     animate={{
                       boxShadow: [
-                        '0 0 0 0 rgba(255, 215, 0, 0.4)',
-                        '0 0 30px 15px rgba(255, 215, 0, 0.2)',
-                        '0 0 0 0 rgba(255, 215, 0, 0.4)'
+                        '0 0 0 0 rgba(255, 215, 0, 0.3)',
+                        '0 0 20px 10px rgba(255, 215, 0, 0.15)',
+                        '0 0 0 0 rgba(255, 215, 0, 0.3)'
                       ]
                     }}
                     transition={{
@@ -112,7 +117,7 @@ export function ThreeCollectionsSection() {
                     }}
                   />
                 )}
-              </Link>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -42,7 +42,7 @@ export function ScrollingText() {
   return (
     <section 
       ref={containerRef}
-      className="w-full bg-gradient-to-r from-gold/20 via-transparent to-gold/20 py-6 md:py-8 overflow-hidden border-y border-gold/30"
+      className="w-full bg-gradient-to-r from-gold/10 via-transparent to-gold/10 py-6 md:py-8 overflow-hidden border-y border-gold/30"
     >
       <div className="relative w-full">
         <motion.div
@@ -58,7 +58,7 @@ export function ScrollingText() {
           {scrollTexts.map((text, index) => (
             <span
               key={index}
-              className="text-xl md:text-2xl font-bold text-gold/90 hover:text-gold transition-colors shrink-0"
+              className="text-xl md:text-2xl font-bold text-gold hover:text-gold/80 transition-colors shrink-0"
             >
               {text}
             </span>
@@ -67,8 +67,8 @@ export function ScrollingText() {
       </div>
       
       {/* Gradient overlays for fade effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
     </section>
   );
 }
