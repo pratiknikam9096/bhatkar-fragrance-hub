@@ -32,7 +32,7 @@ export function FullScreenImageCarousel() {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2000); // 2 seconds
+    }, 4000); // 4 seconds
 
     return () => clearInterval(interval);
   }, [isAutoPlay]);
@@ -62,10 +62,10 @@ export function FullScreenImageCarousel() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ x: 1000, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -1000, opacity: 0 }}
+          transition={{ duration: 0.7 }}
           className="absolute inset-0"
         >
           <img
